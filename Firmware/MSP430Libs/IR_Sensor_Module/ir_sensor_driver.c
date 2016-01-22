@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include "ir_sensor_driver.h"
 #include "adc.h"
+#include "spi_slave.h"
 
 void ir_sensor_init(void) {
 	init_adc();

@@ -1,7 +1,7 @@
 #include <msp430g2553.h>
 #include <string.h>
 #include "spi_slave.h"
-#include "stepper_motor_driver.h"
+#include "ir_sensor_driver.h"
 
 char cmdbuf[20];
 char cmd_index=0;
@@ -38,15 +38,7 @@ __interrupt void USCI0RX_ISR(void) {
 		if (rx_char == '\n') {
 			if (strncmp(cmdbuf, "M:GO", 4) == 0) {
 				robot_go(cmdbuf[4],cmdbuf[5]-'0',cmdbuf[6],cmdbuf[7]-'0');
-			} else if (strncmp(cmdbuf, "M:STOP", 6) == 0) {
-				robot_stop();
-			} else if (strncmp(cmdbuf, "M:GET", 5) == 0) {
-				robot_stop();
-			} else if (strncmp(cmdbuf, "M:GF", 4) == 0) {
-				robot_go(cmdbuf[4],0,cmdbuf[4],0);
-			} else if (strncmp(cmdbuf, "M:CGET", 6) == 0) {
-				robot_get_cycle_count();
-			}
+			} 
 			cmd_index = 0;
 			//spi_putc(txbuf[cmd_index]);
 		} else {

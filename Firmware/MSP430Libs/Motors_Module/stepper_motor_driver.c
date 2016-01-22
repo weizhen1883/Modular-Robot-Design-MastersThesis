@@ -135,18 +135,6 @@ void robot_go(uint8_t speed_R, uint8_t direction_R, uint8_t speed_L, uint8_t dir
 	return_message("M:RUNNING.");
 }
 
-/********** robot_go_for_distance() ************
-the robot will go for the given distance
-speed: motor speed 5~50 rpm
-direction: 0:forward 1:backward
-distance: the number of cycles to go 
-***********************************************/
-// void robot_go_for_distance(uint8_t speed, uint8_t direction, uint32_t distance) {
-// 	robot_go(speed, direction, speed, direction);
-// 	while(distance < CYCLES_COUNT_R && distance < CYCLES_COUNT_L);
-// 	robot_stop();
-// }
-
 /**************** robot_stop() ******************
 the robot will stop
 ***********************************************/
@@ -154,6 +142,16 @@ void robot_stop(void) {
 	timer_disable();
 	set_speed(RIGHT_MOTOR, 0);
 	set_speed(LEFT_MOTOR, 0);
+	unsigned char *rightCount = (unsigned char*)&CYCLES_COUNT_R;
+	unsigned char *leftCount = (unsigned char*)&CYCLES_COUNT_L;
+	char buf[10] = {'M', ':', rightCount[0]+1, rightCount[1]+1, rightCount[2]+1, rightCount[3]+1, leftCount[0]+1, leftCount[1]+1, leftCount[2]+1, leftCount[3]+1};
+	return_message((char *)buf);
+}
+
+/********** robot_get_cycle_count() ************
+the robot will return the cycle count
+***********************************************/
+void robot_get_cycle_count(void) {
 	unsigned char *rightCount = (unsigned char*)&CYCLES_COUNT_R;
 	unsigned char *leftCount = (unsigned char*)&CYCLES_COUNT_L;
 	char buf[10] = {'M', ':', rightCount[0]+1, rightCount[1]+1, rightCount[2]+1, rightCount[3]+1, leftCount[0]+1, leftCount[1]+1, leftCount[2]+1, leftCount[3]+1};

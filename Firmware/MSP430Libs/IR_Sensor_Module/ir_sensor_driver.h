@@ -6,4 +6,7 @@
 #define IR_SENSOR_L 2
 #define IR_SENSOR_R 3
 
+void ir_sensor_init(void);
+uint16_t get_IR_sensor_data(uint8_t IR_number);
+
 #endif

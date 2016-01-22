@@ -15,6 +15,8 @@ int main(int argc, char const *argv[])
 		robotStop();
 	} else if (!strcmp(argv[1], "get")) {
 		robotGet();
+	} else if (!strcmp(argv[1], "cget")) {
+		robotCGet();
 	}
 	return 0;
 }
