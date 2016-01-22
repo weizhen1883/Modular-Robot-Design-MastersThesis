@@ -37,8 +37,5 @@
 void stepper_motor_init(void);
 void robot_go(uint8_t speed_R, uint8_t direction_R, uint8_t speed_L, uint8_t direction_L);
 void robot_stop(void);
-void robot_go_forward(uint8_t speed);
-void robot_go_backward(uint8_t speed);
-void robot_go_round(uint16_t turn_radius, uint8_t speed, uint8_t direction);
 
 #endif

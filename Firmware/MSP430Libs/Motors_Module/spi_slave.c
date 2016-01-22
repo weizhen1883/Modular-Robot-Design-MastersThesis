@@ -36,12 +36,14 @@ __interrupt void USCI0RX_ISR(void) {
 	while (IFG2 & UCB0RXIFG) {
 		rx_char = UCB0RXBUF;
 		if (rx_char == '\n') {
-			if (strncmp(cmdbuf, "M:GF", 4) == 0) {
-				robot_go_forward(cmdbuf[4]);
-			} else if (strncmp(cmdbuf, "M:GO", 4) == 0) {
+			if (strncmp(cmdbuf, "M:GO", 4) == 0) {
 				robot_go(cmdbuf[4],cmdbuf[5]-'0',cmdbuf[6],cmdbuf[7]-'0');
 			} else if (strncmp(cmdbuf, "M:STOP", 6) == 0) {
 				robot_stop();
+			} else if (strncmp(cmdbuf, "M:GET", 5) == 0) {
+				robot_stop();
+			} else if (strncmp(cmdbuf, "M:GF", 4) == 0) {
+				robot_go(cmdbuf[4],0,cmdbuf[4],0);
 			}
 			cmd_index = 0;
 			//spi_putc(txbuf[cmd_index]);
