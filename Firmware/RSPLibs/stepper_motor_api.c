@@ -19,6 +19,7 @@ void robotGo(uint8_t speed_r, uint8_t direction_r, uint8_t speed_l, uint8_t dire
 	spi_t spi;
 	bool value;
 	uint8_t buf[10] = {'M', ':', 'G', 'O', speed_r, '0'+direction_r, speed_l, '0'+direction_l, ' ', '\n'};
+	printf("shifted out: %s\n", buf);
 
 	if (gpio_open(&spi_sel, Motor_Module_Sel_Pin, GPIO_DIR_OUT) < 0) {
 		fprintf(stderr, "gpio_open(): %s\n", gpio_errmsg(&spi_sel));
@@ -57,6 +58,46 @@ void robotStop(void) {
 	spi_t spi;
 	bool value;
 	uint8_t buf[10] = {'M', ':', 'S', 'T', 'O', 'P', ' ', ' ', ' ', '\n'};
+	printf("shifted out: %s\n", buf);
+
+	if (gpio_open(&spi_sel, Motor_Module_Sel_Pin, GPIO_DIR_OUT) < 0) {
+		fprintf(stderr, "gpio_open(): %s\n", gpio_errmsg(&spi_sel));
+		exit(1);
+	}
+
+	if (gpio_write(&spi_sel, !value) < 0) {
+		fprintf(stderr, "gpio_write(): %s\n", gpio_errmsg(&spi_sel));
+		exit(1);
+	}
+
+	if (spi_open(&spi, "/dev/spidev0.0",  0, 10000) < 0) {
+		fprintf(stderr, "spi_open(): %s\n", spi_errmsg(&spi));
+		exit(1);
+	}
+
+	if (spi_transfer(&spi, buf, buf, sizeof(buf)) < 0) {
+		fprintf(stderr, "spi_transfer(): %s\n", spi_errmsg(&spi));
+		exit(1);
+	}
+
+	printf("shifted in: %s\n", buf);
+
+	spi_close(&spi);
+
+	if (gpio_write(&spi_sel, value) < 0) {
+		fprintf(stderr, "gpio_write(): %s\n", gpio_errmsg(&spi_sel));
+		exit(1);
+	}
+
+	gpio_close(&spi_sel);
+}
+
+void robotGet(void) {
+	gpio_t spi_sel;
+	spi_t spi;
+	bool value;
+	uint8_t buf[10] = {'M', ':', 'G', 'E', 'T', ' ', ' ', ' ', ' ', '\n'};
+	printf("shifted out: %s\n", buf);
 
 	if (gpio_open(&spi_sel, Motor_Module_Sel_Pin, GPIO_DIR_OUT) < 0) {
 		fprintf(stderr, "gpio_open(): %s\n", gpio_errmsg(&spi_sel));
