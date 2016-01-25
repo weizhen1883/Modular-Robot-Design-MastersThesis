@@ -1,9 +1,11 @@
-APPNAME=robot
+APPNAME=IR_Sensor
 MCU=msp430g2553
 
 OBJECTS :=
 OBJECTS += main.o
 OBJECTS += adc.o
+OBJECTS += ir_sensor_driver.o
+OBJECTS += spi_slave.o
 
 GCC_PATH=/opt/local
 SUPPORT_PATH=/opt/local/msp430

@@ -37,7 +37,13 @@ __interrupt void USCI0RX_ISR(void) {
 		rx_char = UCB0RXBUF;
 		if (rx_char == '\n') {
 			if (strncmp(cmdbuf, "M:GO", 4) == 0) {
-				robot_go(cmdbuf[4],cmdbuf[5]-'0',cmdbuf[6],cmdbuf[7]-'0');
+				// unsigned char *frontSensorDate = (unsigned char *)&sensorData_F;
+				// unsigned char *backSensorDate = (unsigned char *)&sensorData_B;
+				// unsigned char *leftSensorDate = (unsigned char *)&sensorData_L;
+				// unsigned char *rightSensorDate = (unsigned char *)&sensorData_R;
+				// char buf[10] = {'S', ':', frontSensorDate[1], frontSensorDate[0], backSensorDate[1], backSensorDate[0], 
+				// 	leftSensorDate[1], leftSensorDate[0], rightSensorDate[1], rightSensorDate[0]};
+				// return_message((char *)buf);
 			} 
 			cmd_index = 0;
 			//spi_putc(txbuf[cmd_index]);
