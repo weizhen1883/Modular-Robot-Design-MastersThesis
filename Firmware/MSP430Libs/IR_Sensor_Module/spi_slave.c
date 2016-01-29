@@ -3,7 +3,7 @@
 #include "spi_slave.h"
 #include "ir_sensor_driver.h"
 
-char cmdbuf[20];
+char cmdbuf[10];
 char cmd_index=0;
 
 void spi_init(void) {
@@ -36,17 +36,12 @@ __interrupt void USCI0RX_ISR(void) {
 	while (IFG2 & UCB0RXIFG) {
 		rx_char = UCB0RXBUF;
 		if (rx_char == '\n') {
-			if (strncmp(cmdbuf, "M:GO", 4) == 0) {
-				// unsigned char *frontSensorDate = (unsigned char *)&sensorData_F;
-				// unsigned char *backSensorDate = (unsigned char *)&sensorData_B;
-				// unsigned char *leftSensorDate = (unsigned char *)&sensorData_L;
-				// unsigned char *rightSensorDate = (unsigned char *)&sensorData_R;
-				// char buf[10] = {'S', ':', frontSensorDate[1], frontSensorDate[0], backSensorDate[1], backSensorDate[0], 
-				// 	leftSensorDate[1], leftSensorDate[0], rightSensorDate[1], rightSensorDate[0]};
-				// return_message((char *)buf);
-			} 
+			if (strncmp(cmdbuf, "S:GET IR", 8) == 0) {
+				get_IR_data();
+			} else if (strncmp(cmdbuf, "S:PRE IR", 8) == 0) {
+				prepare_IR_data();
+			}
 			cmd_index = 0;
-			//spi_putc(txbuf[cmd_index]);
 		} else {
 			cmdbuf[cmd_index] = rx_char;
 			cmd_index++;

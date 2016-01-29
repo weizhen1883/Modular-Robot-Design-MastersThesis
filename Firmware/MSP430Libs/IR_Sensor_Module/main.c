@@ -11,32 +11,9 @@ int main(void) {
 
 	ir_sensor_init();
 	spi_init();
-	return_message("RobotReady");
+	return_message("S:IR_READY");
 
-	__bis_SR_register(GIE); //Interrupts Enabled
-
-	// uint16_t sensorData_F;
-	// uint16_t sensorData_B;
-	// uint16_t sensorData_L;
-	// uint16_t sensorData_R;
-	unsigned char *frontSensorDate;
-	unsigned char *backSensorDate;
-	unsigned char *leftSensorDate;
-	unsigned char *rightSensorDate;
-
-	while(1) {
-		sensorData_F = get_IR_sensor_data(IR_SENSOR_F);
-		sensorData_B = get_IR_sensor_data(IR_SENSOR_B);
-		sensorData_L = get_IR_sensor_data(IR_SENSOR_L);
-		sensorData_R = get_IR_sensor_data(IR_SENSOR_R);
-		frontSensorDate = (unsigned char *)&sensorData_F;
-		backSensorDate = (unsigned char *)&sensorData_B;
-		leftSensorDate = (unsigned char *)&sensorData_L;
-		rightSensorDate = (unsigned char *)&sensorData_R;
-		char buf[10] = {'S', ':', frontSensorDate[1], frontSensorDate[0], backSensorDate[1], backSensorDate[0], 
-			leftSensorDate[1], leftSensorDate[0], rightSensorDate[1], rightSensorDate[0]};
-		return_message((char *)buf);
-	}
+	__bis_SR_register(LPM0_bits + GIE); //Interrupts Enabled
 
 	return 0;
 }

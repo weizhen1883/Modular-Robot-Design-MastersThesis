@@ -48,7 +48,6 @@ __interrupt void USCI0RX_ISR(void) {
 				robot_get_cycle_count();
 			}
 			cmd_index = 0;
-			//spi_putc(txbuf[cmd_index]);
 		} else {
 			cmdbuf[cmd_index] = rx_char;
 			cmd_index++;

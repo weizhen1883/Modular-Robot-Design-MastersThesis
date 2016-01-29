@@ -8,5 +8,7 @@
 
 void ir_sensor_init(void);
 uint16_t get_IR_sensor_data(uint8_t IR_number);
+void prepare_IR_data(void);
+void get_IR_data(void);
 
 #endif
