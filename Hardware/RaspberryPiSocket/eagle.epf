@@ -1,0 +1,24 @@
+[Eagle]
+Version="07 03 00"
+Platform="Mac OS X"
+Serial="7316F9B6D5-LSR-WLM-5CS"
+Globals="Globals"
+Desktop="Desktop"
+
+[Globals]
+AutoSaveProject=1
+UsedLibrary="/Users/zhenw/Desktop/ivani_files/ivani_hardware/ivani_lib/ivani_lib.lbr"
+UsedLibrary="/Users/zhenw/Desktop/ivani_files/ivani_hardware/ivani_lib/ivani_lib_power.lbr"
+UsedLibrary="/Users/zhenw/Google Drive/Thesis Project/Zhen Masters Folder/Designs/RobotBoards/lib/robot_lib.lbr"
+UsedLibrary="/Users/zhenw/Google Drive/Thesis Project/Zhen Masters Folder/Designs/RobotBoards/lib/supply1.lbr"
+UsedLibrary="/Users/zhenw/Google Drive/Thesis Project/Zhen Masters Folder/Designs/RobotBoards/lib/supply2.lbr"
+
+[Win_1]
+Type="Control Panel"
+Loc="223 79 822 478"
+State=2
+Number=0
+
+[Desktop]
+Screen="3360 1080"
+Window="Win_1"
