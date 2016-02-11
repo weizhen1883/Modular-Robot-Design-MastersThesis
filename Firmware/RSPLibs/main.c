@@ -8,8 +8,8 @@
 
 int main(int argc, char const *argv[])
 {
-	robotMotorModuleInit(23);
-	IRSensorModuleInit(24);
+	robotMotorModuleInit(17);
+	IRSensorModuleInit(4);
 	printf("%s\n", argv[1]);
 	if (!strcmp(argv[1],"go")) {
 		if (argc > 3) {
