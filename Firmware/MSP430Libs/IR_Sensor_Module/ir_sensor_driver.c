@@ -14,8 +14,8 @@ uint16_t get_IR_sensor_data(uint8_t IR_number) {
 void prepare_IR_data(void) {
 	uint16_t sensorData_F = get_IR_sensor_data(0);
 	uint16_t sensorData_B = get_IR_sensor_data(2);
-	uint16_t sensorData_L = get_IR_sensor_data(3);
-	uint16_t sensorData_R = get_IR_sensor_data(1);
+	uint16_t sensorData_L = get_IR_sensor_data(1);
+	uint16_t sensorData_R = get_IR_sensor_data(3);
 
 	unsigned char data_F_0 = (unsigned char)((sensorData_F & 0xFF00) >> 8) + 1;
 	unsigned char data_F_1 = (unsigned char)(sensorData_F & 0x00FF);

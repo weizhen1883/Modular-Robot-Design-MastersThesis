@@ -7,7 +7,7 @@
 
 #include "stepper_motor_api.h"
 
-uint8_t Motor_Module_Sel_Pin = 23;
+uint8_t Motor_Module_Sel_Pin = 17;
 
 void robotMotorModuleInit(uint8_t en_pin) {
 	Motor_Module_Sel_Pin = en_pin;
@@ -119,8 +119,8 @@ void robotGet(void) {
 		exit(1);
 	}
 
-	uint32_t leftCount = ((uint32_t)(buf[5]-1) << 24) | ((buf[4]-1) << 16) | ((buf[3]-1) << 8) | (buf[2]-1);
-	uint32_t rightCount = ((uint32_t)(buf[9]-1) << 24) | ((buf[8]-1) << 16) | ((buf[7]-1) << 8) | (buf[6]-1);
+	uint32_t rightCount = ((uint32_t)(buf[5]-1) << 24) | ((buf[4]-1) << 16) | ((buf[3]-1) << 8) | (buf[2]-1);
+	uint32_t leftCount = ((uint32_t)(buf[9]-1) << 24) | ((buf[8]-1) << 16) | ((buf[7]-1) << 8) | (buf[6]-1);
 	printf("shifted in: %c%cL=%ld,R=%ld\n", buf[0], buf[1], leftCount, rightCount);
 
 	spi_close(&spi);
