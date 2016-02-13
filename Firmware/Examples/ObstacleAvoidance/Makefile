@@ -1,1 +1,3 @@
-gcc -I/home/pi/c-periphery-master/src main.c ir_sensor_api.c stepper_motor_api.c ir_functions.c /home/pi/c-periphery-master/periphery.a -o ObstacleAvoidance -lm
+gcc -I/home/pi/c-periphery-master/src stop_before_obstacle.c ir_sensor_api.c stepper_motor_api.c ir_functions.c /home/pi/c-periphery-master/periphery.a -o StopBeforeObstacle -lm
+gcc -I/home/pi/c-periphery-master/src shy_avoid.c ir_sensor_api.c stepper_motor_api.c ir_functions.c /home/pi/c-periphery-master/periphery.a -o ShyAvoid -lm
+gcc -I/home/pi/c-periphery-master/src main.c ir_sensor_api.c stepper_motor_api.c ir_functions.c /home/pi/c-periphery-master/periphery.a -o ObstacleAvoid -lm
