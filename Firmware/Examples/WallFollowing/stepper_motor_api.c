@@ -19,7 +19,7 @@ void robotGo(uint8_t speed_r, uint8_t direction_r, uint8_t speed_l, uint8_t dire
 	spi_t spi;
 	bool value = 0;
 	uint8_t buf[10] = {'M', ':', 'G', 'O', speed_r, '0'+direction_r, speed_l, '0'+direction_l, ' ', '\n'};
-	printf("shifted out: %s\n", buf);
+	// printf("shifted out: %s\n", buf);
 
 	if (gpio_open(&spi_sel, Motor_Module_Sel_Pin, GPIO_DIR_OUT) < 0) {
 		fprintf(stderr, "gpio_open(): %s\n", gpio_errmsg(&spi_sel));
@@ -41,7 +41,7 @@ void robotGo(uint8_t speed_r, uint8_t direction_r, uint8_t speed_l, uint8_t dire
 		exit(1);
 	}
 
-	printf("shifted in: %s\n", buf);
+	// printf("shifted in: %s\n", buf);
 
 	spi_close(&spi);
 
@@ -58,7 +58,7 @@ void robotStop(void) {
 	spi_t spi;
 	bool value = 0;
 	uint8_t buf[10] = {'M', ':', 'S', 'T', 'O', 'P', ' ', ' ', ' ', '\n'};
-	printf("shifted out: %s\n", buf);
+	// printf("shifted out: %s\n", buf);
 
 	if (gpio_open(&spi_sel, Motor_Module_Sel_Pin, GPIO_DIR_OUT) < 0) {
 		fprintf(stderr, "gpio_open(): %s\n", gpio_errmsg(&spi_sel));
@@ -80,7 +80,7 @@ void robotStop(void) {
 		exit(1);
 	}
 
-	printf("shifted in: %s\n", buf);
+	// printf("shifted in: %s\n", buf);
 
 	spi_close(&spi);
 

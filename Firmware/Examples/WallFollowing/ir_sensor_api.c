@@ -39,7 +39,7 @@ void preIR(void) {
 		fprintf(stderr, "spi_transfer(): %s\n", spi_errmsg(&spi));
 		exit(1);
 	}
-	printf("shifted in: %s\n", buf);
+	// printf("shifted in: %s\n", buf);
 
 	spi_close(&spi);
 
