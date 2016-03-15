@@ -60,27 +60,19 @@ uint8_t LeftWallFollowing(struct SensorLimits IRLimits, uint16_t* sensorData, ui
 
 	switch (states) {
 		case 0:
-			// P_Controller(IRLimits, sensorData, MODE_FOLLOW_LEFT_WALL);
 			robotGo(motors.speed_r, motors.direction_r, motors.speed_l, motors.direction_l);
 			for (i = 0; i < 50000; i++);
 			nextStates = 1;
 			break;
 		case 1:
-			// if (sensorData[0] > IRLimits.frontLimit) {
-			// 	robotStop();
-			// 	for (i = 0; i < 50000; i++);
-			// 	nextStates = 2;
-			// } else {
-			// 	P_Controller(IRLimits, sensorData, MODE_FOLLOW_LEFT_WALL);
-			// 	robotStop();
-			// 	for (i = 0; i < 50000; i++);
-			// 	nextStates = 0;
-			// }
-
 			if (sensorData[0] > IRLimits.frontLimit) {
 				robotStop();
 				for (i = 0; i < 50000; i++);
 				nextStates = 2;
+			} else if (sensorData[2] < Calculate_Left_IR_Value(20)) {
+				robotStop();
+				for (i = 0; i < 50000; i++);
+				nextStates = 4;
 			} else {
 				P_Controller(IRLimits, sensorData, MODE_FOLLOW_LEFT_WALL);
 				robotGo(motors.speed_r, motors.direction_r, motors.speed_l, motors.direction_l);
@@ -106,6 +98,29 @@ uint8_t LeftWallFollowing(struct SensorLimits IRLimits, uint16_t* sensorData, ui
 				nextStates = 3;
 			}
 			break;
+		case 4:
+			robotGo(50,1,15,1);
+			for (i = 0; i < 50000; i++);
+			nextStates = 5;
+			break;
+		case 5:
+			if (sensorData[2] > IRLimits.leftLimit) {
+				robotStop();
+				for (i = 0; i < 100000; i++);
+				nextStates = 0;
+				motors.speed_l = 30;
+				motors.speed_r = 30;
+				motors.direction_l = 1;
+				motors.direction_r = 1;
+			} else if (sensorData[0] > Calculate_Left_IR_Value(6)) {
+				IRLimits.frontLimit = Calculate_Front_IR_Value(10);
+				robotStop();
+				for (i = 0; i < 100000; i++);
+				nextStates = 2;	
+			} else {
+				nextStates = 5;
+			}
+			break;
 		default:
 			robotStop();
 			for (i = 0; i < 50000; i++);
@@ -121,11 +136,6 @@ void P_Controller(struct SensorLimits IRLimits, uint16_t* sensorData, uint8_t mo
 	double cur_error_inch;
 	switch (mode) {
 		case MODE_FOLLOW_LEFT_WALL:
-			// if (sensorData[2] > IRLimits.leftLimit) {
-			// 	motors.speed_l = (motors.speed_l * 10 + Kp * (sensorData[2] - IRLimits.leftLimit)) / 10;
-			// } else {
-			// 	motors.speed_l = (motors.speed_l * 10 - Kp * (IRLimits.leftLimit - sensorData[2])) / 10;
-			// }
 			cur_error = IRLimits.leftLimit - sensorData[2];
 			cur_error_inch = Calculate_Left_Inch_Value((double)sensorData[2]) - 10.;
 			motors.speed_l = (uint8_t)(30. - cur_error_inch * ((double)Kp)); 
@@ -134,16 +144,6 @@ void P_Controller(struct SensorLimits IRLimits, uint16_t* sensorData, uint8_t mo
 			printf("the left speed is %d\n", motors.speed_l);
 			printf("the right speed is %d\n", motors.speed_r);
 			break;
-		// case MODE_FOLLOW_RIGHT_WALL:
-		// 	cur_error = IRLimits.rightLimit - sensorData[3];
-		// 	motors.speed_r = motors.speed_r - cur_error * Kp; 
-		// 	break;
-		// case MODE_IN_THE_MIDDLE_OF_WALLS:
-		// 	cur_error = IRLimits.leftLimit - sensorData[2];
-		// 	motors.speed_l = motors.speed_l - cur_error * Kp;
-		// 	cur_error = IRLimits.rightLimit - sensorData[3];
-		// 	motors.speed_r = motors.speed_r - cur_error * Kp; 
-		// 	break;
 	}
 }
 
