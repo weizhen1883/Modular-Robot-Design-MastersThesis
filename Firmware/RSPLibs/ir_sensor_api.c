@@ -102,7 +102,7 @@ void get_ir_datas(uint16_t* data) {
 	preIR();
 	//delay
 	int i;
-	for (i = 0; i < 15000; i++);
+	for (i = 0; i < 50000; i++);
 	getIR(data);
 }
 
