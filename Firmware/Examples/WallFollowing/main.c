@@ -104,21 +104,30 @@ uint8_t LeftWallFollowing(struct SensorLimits IRLimits, uint16_t* sensorData, ui
 			nextStates = 5;
 			break;
 		case 5:
-			if (sensorData[2] > IRLimits.leftLimit) {
+			if (sensorData[0] > Calculate_Left_IR_Value(8)) {
+				robotStop();
+				for (i = 0; i < 50000; i++);
+				nextStates = 6;	
+			} else {
+				nextStates = 5;
+			}
+			break;
+		case 6:
+			robotGo(30,0,30,1);
+			for (i = 0; i < 50000; i++);
+			nextStates = 7;
+			break;
+		case 7:
+			if (sensorData[0] < IRLimits.frontLimit && sensorData[2] > Calculate_Left_IR_Value(5)) {
 				robotStop();
 				for (i = 0; i < 100000; i++);
-				nextStates = 0;
+				nextStates = 1;
 				motors.speed_l = 30;
 				motors.speed_r = 30;
 				motors.direction_l = 1;
 				motors.direction_r = 1;
-			} else if (sensorData[0] > Calculate_Left_IR_Value(6)) {
-				IRLimits.frontLimit = Calculate_Front_IR_Value(10);
-				robotStop();
-				for (i = 0; i < 100000; i++);
-				nextStates = 2;	
 			} else {
-				nextStates = 5;
+				nextStates = 7;
 			}
 			break;
 		default:
