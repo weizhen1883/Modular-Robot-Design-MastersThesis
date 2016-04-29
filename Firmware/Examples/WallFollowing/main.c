@@ -41,9 +41,8 @@ int main(int argc, char const *argv[])
 	motors.direction_l = 1;
 	motors.direction_r = 1;
 
-	robotMotorModuleInit(17);
-	IRSensorModuleInit(4);
-	// printf("Obstacle Avoidance project start!\n");
+	robotMotorModuleInit(4);
+	IRSensorModuleInit(17);
 
 	while(1) {
 		get_ir_datas(sensorData);
@@ -81,7 +80,7 @@ uint8_t LeftWallFollowing(struct SensorLimits IRLimits, uint16_t* sensorData, ui
 			}
 			break;
 		case 2:
-			robotGo(30,0,30,1);//turn right
+			robotGo(30,0,30,1);
 			for (i = 0; i < 50000; i++);
 			nextStates = 3;
 			break;
@@ -140,7 +139,6 @@ uint8_t LeftWallFollowing(struct SensorLimits IRLimits, uint16_t* sensorData, ui
 }
 
 void P_Controller(struct SensorLimits IRLimits, uint16_t* sensorData, uint8_t mode) {
-	// int tmp_speed_l;
 	int cur_error;
 	double cur_error_inch;
 	switch (mode) {

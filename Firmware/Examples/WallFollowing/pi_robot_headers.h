@@ -15,6 +15,4 @@ struct SensorLimits {
 	uint16_t rightLimit;
 };
 
-
-
 #endif

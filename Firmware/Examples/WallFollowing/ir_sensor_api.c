@@ -7,7 +7,7 @@
 
 #include "ir_sensor_api.h"
 
-uint8_t IR_Sensor_Module_Sel_Pin = 4;
+uint8_t IR_Sensor_Module_Sel_Pin = 17;
 
 void IRSensorModuleInit(uint8_t en_pin) {
 	IR_Sensor_Module_Sel_Pin = en_pin;

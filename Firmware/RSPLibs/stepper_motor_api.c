@@ -7,7 +7,7 @@
 
 #include "stepper_motor_api.h"
 
-uint8_t Motor_Module_Sel_Pin = 17;
+uint8_t Motor_Module_Sel_Pin = 4;
 
 void robotMotorModuleInit(uint8_t en_pin) {
 	Motor_Module_Sel_Pin = en_pin;

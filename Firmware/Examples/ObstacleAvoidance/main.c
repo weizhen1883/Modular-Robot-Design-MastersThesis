@@ -21,8 +21,8 @@ int main(int argc, char const *argv[])
 
 	printf("Front Limit is %d\n", frontLimit);
 
-	robotMotorModuleInit(17);
-	IRSensorModuleInit(4);
+	robotMotorModuleInit(4);
+	IRSensorModuleInit(17);
 	printf("Obstacle Avoidance project start!\n");
 
 	while(1) {

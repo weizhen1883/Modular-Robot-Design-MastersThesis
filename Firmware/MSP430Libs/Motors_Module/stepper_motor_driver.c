@@ -42,7 +42,7 @@ void stepper_motor_init(void) {
 /******* stepper_motor_direction_set() ********
 Set the motor run direction
 motor_sel: motor selection 0:right 1:left 2:all
-direction: motor direction 0:front 1:back
+direction: motor direction 1:front 0:back
 ***********************************************/
 void stepper_motor_direction_set(uint8_t motor_sel, uint8_t direction) {
 	switch (motor_sel) {
